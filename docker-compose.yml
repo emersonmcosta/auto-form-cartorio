@@ -1,0 +1,40 @@
+services:
+    php:
+        container_name: totem_app
+        build:
+            context: .
+            dockerfile: .docker/apache/dockerfile
+        image: 'ubuntu-laravel'
+        ports:
+            - 80:80
+        volumes:
+            - .:/var/www/html
+        networks: 
+            - mysql-compose-network
+
+    mysqlsrv:
+      container_name: totem_mysql
+      image: mysql:5.7
+      command: --explicit_defaults_for_timestamp
+      environment:
+        MYSQL_ROOT_PASSWORD: "root"
+        MYSQL_DATABASE: "gamma"
+      ports:
+        - "3306:3306"
+      volumes:
+        - .:/var/lib/sql
+      networks:
+        - mysql-compose-network
+    mailhog:
+      image: mailhog/mailhog
+      container_name: totem_mailhog
+      restart: unless-stopped
+      ports:
+        - "1025:1025"   # SMTP
+        - "8025:8025"   # Interface Web
+      networks:
+         - mysql-compose-network
+
+networks: 
+  mysql-compose-network:
+    driver: bridge
