@@ -1,6 +1,5 @@
 #Build container
-docker-compose up -d --build --force-recreate --no-cache
-
+docker-compose up -d --build --force-recreate
 #Config project
 docker exec -i totem_app cp -r .env.example .env
 docker exec -i totem_app chmod 777 -R storage

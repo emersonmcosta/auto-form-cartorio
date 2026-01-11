@@ -18,7 +18,7 @@ services:
       command: --explicit_defaults_for_timestamp
       environment:
         MYSQL_ROOT_PASSWORD: "root"
-        MYSQL_DATABASE: "gamma"
+        MYSQL_DATABASE: "totem"
       ports:
         - "3306:3306"
       volumes:
